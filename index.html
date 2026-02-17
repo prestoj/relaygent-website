@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relaygent — Autonomous AI Agent for Your Machine</title>
+    <meta name="description" content="An autonomous AI agent that runs continuously on your Mac or Linux machine. It sees your screen, runs commands, and hands off to itself indefinitely.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <a href="/" class="logo">relaygent</a>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="https://github.com/unsupervised-claude/relaygent" class="btn-nav">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <h1>Your AI agent.<br>Always running.</h1>
+            <p class="hero-sub">An autonomous agent that lives on your machine — sees your screen, writes code, runs commands, and hands off to itself when context fills. No human in the loop required.</p>
+            <div class="hero-actions">
+                <a href="https://github.com/unsupervised-claude/relaygent" class="btn-primary">Get Started</a>
+                <a href="#how-it-works" class="btn-secondary">See How It Works</a>
+            </div>
+            <div class="hero-code">
+                <pre><code>git clone https://github.com/unsupervised-claude/relaygent.git
+cd relaygent
+./setup.sh
+relaygent start</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="section-inner">
+            <h2>What it does</h2>
+            <div class="feature-grid">
+                <div class="feature">
+                    <div class="feature-icon">&#x1f501;</div>
+                    <h3>Runs indefinitely</h3>
+                    <p>When one session fills its context window, the agent writes a detailed briefing and a fresh session picks up exactly where it left off. Hours, days, weeks.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">&#x1f5a5;</div>
+                    <h3>Controls your screen</h3>
+                    <p>Screenshots, clicks, typing, scrolling, accessibility trees, app launching, browser navigation. Full computer use on macOS and Linux.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">&#x1f9e0;</div>
+                    <h3>Remembers everything</h3>
+                    <p>A git-tracked knowledge base persists across sessions. The agent reads its predecessor's notes, updates them, and leaves better ones for the next session.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">&#x1f4ac;</div>
+                    <h3>Chat interface</h3>
+                    <p>Message your agent through the web dashboard. Messages wake it from sleep. Watch it work in real time with the live activity feed.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">&#x1f4a4;</div>
+                    <h3>Sleeps and wakes</h3>
+                    <p>Between active work, the agent sleeps at zero token cost. Send a message, fire a reminder, or trigger a notification — it wakes up and gets to work.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">&#x1f3af;</div>
+                    <h3>Stays aligned</h3>
+                    <p>You write an intent file describing your priorities. The agent reads it every session but can never edit it. You control what it works on.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="how-it-works">
+        <div class="section-inner">
+            <h2>How the relay works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <div class="step-content">
+                        <h3>Start a session</h3>
+                        <p>The harness launches a Claude Code session with a system prompt, handoff notes from the previous session, and your intent file.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <div class="step-content">
+                        <h3>Agent works autonomously</h3>
+                        <p>Claude reads files, writes code, runs commands, uses the screen — whatever the task requires. A PostToolUse hook injects time, notifications, and context usage after every tool call.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <div class="step-content">
+                        <h3>Context fills up</h3>
+                        <p>At ~85% context, the agent wraps up: writes a detailed handoff, updates persistent state, and commits the knowledge base.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num">4</div>
+                    <div class="step-content">
+                        <h3>Successor continues</h3>
+                        <p>The harness spawns a fresh session that reads the handoff and continues immediately. No information lost, no manual intervention.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="dashboard-preview">
+        <div class="section-inner">
+            <h2>Live dashboard</h2>
+            <p class="section-sub">Watch your agent work in real time. Activity feed, screen view, chat, knowledge base, and more — all at localhost:8080.</p>
+            <div class="dashboard-features">
+                <div class="dash-feature">Activity Feed — every tool call, expandable details</div>
+                <div class="dash-feature">Live Screen — what the agent sees right now</div>
+                <div class="dash-feature">Chat — message your agent, wake it from sleep</div>
+                <div class="dash-feature">Knowledge Base — the agent's long-term memory</div>
+                <div class="dash-feature">Forum — threaded discussions across sessions</div>
+                <div class="dash-feature">Context Bar — how full the current session is</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="requirements">
+        <div class="section-inner">
+            <h2>Requirements</h2>
+            <div class="req-grid">
+                <div class="req">
+                    <h3>macOS or Linux</h3>
+                    <p>macOS 13+ or Ubuntu 22.04+. Computer use via Hammerspoon (macOS) or xdotool (Linux).</p>
+                </div>
+                <div class="req">
+                    <h3>Claude Code</h3>
+                    <p><code>npm install -g @anthropic-ai/claude-code</code> with an active Anthropic subscription.</p>
+                </div>
+                <div class="req">
+                    <h3>Node.js 20+ &amp; Python 3.9+</h3>
+                    <p>For the dashboard, services, and harness. Setup handles the rest.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="section-inner">
+            <h2>Get started in 60 seconds</h2>
+            <div class="cta-code">
+                <pre><code>git clone https://github.com/unsupervised-claude/relaygent.git
+cd relaygent
+./setup.sh
+relaygent start</code></pre>
+            </div>
+            <a href="https://github.com/unsupervised-claude/relaygent" class="btn-primary">View on GitHub</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <span class="footer-logo">relaygent</span>
+            <span class="footer-links">
+                <a href="https://github.com/unsupervised-claude/relaygent">GitHub</a>
+            </span>
+        </div>
+    </footer>
+</body>
+</html>
