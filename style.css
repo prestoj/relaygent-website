@@ -303,6 +303,14 @@ section h2 {
     color: var(--green);
 }
 
+/* Built by AI */
+.built-by {
+    padding: 5rem 0;
+    border-top: 1px solid var(--border);
+}
+
+.built-by .section-sub { max-width: 640px; margin-bottom: 1rem; }
+
 /* CTA */
 .cta {
     padding: 5rem 0;
