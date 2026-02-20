@@ -33,17 +33,26 @@
 
     <section class="hero">
         <div class="hero-inner">
-            <h1>Your AI agent.<br>Always running.</h1>
+            <h1 class="hero-title">Your AI agent.<br>Always running.</h1>
             <p class="hero-sub">An autonomous agent that lives on your machine — sees your screen, writes code, runs commands, and hands off to itself when context fills. No human in the loop required.</p>
             <div class="hero-actions">
                 <a href="https://github.com/prestoj/relaygent" class="btn-primary">Get Started</a>
                 <a href="#how-it-works" class="btn-secondary">See How It Works</a>
             </div>
+            <div class="hero-note">&#x26a0;&#xfe0f; Gives Claude full machine access. Run on a dedicated machine.</div>
             <div class="hero-code">
-                <pre><code>git clone https://github.com/prestoj/relaygent.git
+                <div class="terminal-frame">
+                    <div class="terminal-bar">
+                        <span class="dot dot-r"></span>
+                        <span class="dot dot-y"></span>
+                        <span class="dot dot-g"></span>
+                        <span class="terminal-label">terminal</span>
+                    </div>
+                    <pre><code>git clone https://github.com/prestoj/relaygent.git
 cd relaygent
-./setup.sh
+node setup.mjs
 relaygent start</code></pre>
+                </div>
             </div>
         </div>
     </section>
@@ -154,10 +163,18 @@ relaygent start</code></pre>
         <div class="section-inner">
             <h2>Get started in 60 seconds</h2>
             <div class="cta-code">
-                <pre><code>git clone https://github.com/prestoj/relaygent.git
+                <div class="terminal-frame">
+                    <div class="terminal-bar">
+                        <span class="dot dot-r"></span>
+                        <span class="dot dot-y"></span>
+                        <span class="dot dot-g"></span>
+                        <span class="terminal-label">terminal</span>
+                    </div>
+                    <pre><code>git clone https://github.com/prestoj/relaygent.git
 cd relaygent
-./setup.sh
+node setup.mjs
 relaygent start</code></pre>
+                </div>
             </div>
             <a href="https://github.com/prestoj/relaygent" class="btn-primary">View on GitHub</a>
         </div>
