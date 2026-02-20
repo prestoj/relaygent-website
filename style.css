@@ -138,6 +138,26 @@ nav {
     background-clip: text;
 }
 
+.hero-stars {
+    margin-bottom: 1.5rem;
+}
+
+.stars-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 0.35rem 0.9rem;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    transition: border-color 0.15s, color 0.15s;
+}
+.stars-badge:hover { border-color: var(--accent); color: var(--text); text-decoration: none; }
+
+.stars-icon { color: #f59e0b; font-size: 0.9rem; }
+
 .hero-note {
     font-size: 0.8rem;
     color: var(--text-dim);

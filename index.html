@@ -39,6 +39,12 @@
                 <a href="https://github.com/prestoj/relaygent" class="btn-primary">Get Started</a>
                 <a href="#how-it-works" class="btn-secondary">See How It Works</a>
             </div>
+            <div class="hero-stars">
+                <a href="https://github.com/prestoj/relaygent" class="stars-badge" id="stars-badge">
+                    <span class="stars-icon">&#9733;</span>
+                    <span class="stars-count" id="stars-count">Star on GitHub</span>
+                </a>
+            </div>
             <div class="hero-note">&#x26a0;&#xfe0f; Gives Claude full machine access. Run on a dedicated machine.</div>
             <div class="hero-code">
                 <div class="terminal-frame">
@@ -188,5 +194,17 @@ relaygent start</code></pre>
             </span>
         </div>
     </footer>
+    <script>
+        fetch('https://api.github.com/repos/prestoj/relaygent')
+            .then(r => r.json())
+            .then(d => {
+                if (d.stargazers_count != null) {
+                    const n = d.stargazers_count;
+                    document.getElementById('stars-count').textContent =
+                        n >= 1000 ? (n / 1000).toFixed(1) + 'k stars' : n + ' stars';
+                }
+            })
+            .catch(() => {});
+    </script>
 </body>
 </html>
