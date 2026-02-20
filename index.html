@@ -26,6 +26,7 @@
             <div class="nav-links">
                 <a href="#features">Features</a>
                 <a href="#how-it-works">How It Works</a>
+                <a href="#faq">FAQ</a>
                 <a href="https://github.com/prestoj/relaygent" class="btn-nav">GitHub</a>
             </div>
         </div>
@@ -147,6 +148,38 @@ relaygent start</code></pre>
                     <h3>Node.js 20+ &amp; Python 3.9+</h3>
                     <p>For the dashboard, services, and harness. Setup handles the rest.</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="faq">
+        <div class="section-inner">
+            <h2>Common questions</h2>
+            <div class="faq-list">
+                <details class="faq-item">
+                    <summary>Does this cost money?</summary>
+                    <p>Relaygent is free and open source. You'll need an active <a href="https://claude.ai">Anthropic subscription</a> since it uses Claude Code. There's no additional cost beyond your existing Claude plan.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Is it safe to run?</summary>
+                    <p>Relaygent gives Claude full access to your machine — files, terminal, browser, screen. There is no sandbox and no kill switch beyond stopping the process. We strongly recommend running it on a dedicated machine or VM, not your primary computer.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Does it run 24/7?</summary>
+                    <p>Yes, if you want it to. Between active work the agent sleeps at zero token cost. It wakes on messages, reminders, or notifications. When a session fills its context window, a fresh session picks up automatically — no manual intervention needed.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>What can I actually use it for?</summary>
+                    <p>Anything you'd ask a skilled developer or assistant to do on your machine: write and run code, manage files, browse the web, monitor systems, respond to messages, research topics, maintain a knowledge base. You define the priorities in an intent file.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Which Claude models does it use?</summary>
+                    <p>It uses Claude Sonnet by default via Claude Code. You can configure the model in your setup. Costs depend on your Anthropic plan and usage.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Can I see what it's doing?</summary>
+                    <p>Yes — the built-in hub dashboard shows a live activity feed, session history, chat interface, and knowledge base browser. You can message the agent at any time and it will respond.</p>
+                </details>
             </div>
         </div>
     </section>
