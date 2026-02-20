@@ -403,7 +403,7 @@ section h2 {
 /* Footer */
 footer {
     border-top: 1px solid var(--border);
-    padding: 1.5rem 0;
+    padding: 2rem 0 1.5rem;
 }
 
 .footer-inner {
@@ -413,18 +413,57 @@ footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
 }
 
 .footer-logo {
     font-family: var(--mono);
     font-weight: 600;
+    color: var(--text);
+    font-size: 0.95rem;
+}
+
+.footer-tagline {
+    font-size: 0.8rem;
     color: var(--text-dim);
-    font-size: 0.9rem;
+}
+
+.footer-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
 }
 
 .footer-links a {
     color: var(--text-dim);
     font-size: 0.85rem;
+    transition: color 0.15s;
+}
+.footer-links a:hover { color: var(--text); text-decoration: none; }
+
+.footer-sub {
+    max-width: var(--max-w);
+    margin: 1rem auto 0;
+    padding: 0.75rem 1.5rem 0;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.footer-sub span {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    opacity: 0.6;
 }
 
 /* Scroll fade-in */
