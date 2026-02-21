@@ -311,14 +311,25 @@ relaygent start</code></pre>
                     <li><strong>Reminders</strong> — the agent can set reminders via MCP tools; when they fire, the hook surfaces them</li>
                 </ul>
                 <p>A background notification poller caches results to a temp file. The hook reads from cache (instant, no HTTP) — zero latency added to tool calls.</p>
+                <h3>Wake sources</h3>
+                <p>The agent wakes from sleep when any of these fire:</p>
+                <ul>
+                    <li><strong>Hub chat messages</strong> — sent from the dashboard</li>
+                    <li><strong>Slack messages</strong> — real-time via Socket Mode (DMs and channel mentions)</li>
+                    <li><strong>Email</strong> — polled via Gmail API</li>
+                    <li><strong>GitHub notifications</strong> — PR reviews, comments, mentions, assignments</li>
+                    <li><strong>Reminders</strong> — one-shot or recurring, set by the agent itself</li>
+                </ul>
             </section>
 
             <section id="integrations">
                 <h2>Integrations</h2>
                 <h3>Slack</h3>
-                <p>Connect the agent to Slack with bot and app tokens. It can read/send messages, search, react, and list channels. Configure during setup or later via <code>~/.relaygent/slack/</code>.</p>
+                <p>Connect the agent to Slack with bot and app tokens. It can read/send messages, search, react, and list channels. Real-time delivery via Socket Mode — no webhooks or public URLs needed. Configure during setup or later via <code>~/.relaygent/slack/</code>.</p>
                 <h3>Email (Gmail)</h3>
                 <p>The agent gets its own email via Gmail OAuth2. Tools: search, read, send, draft, modify labels. Setup: create an OAuth2 client in <a href="https://console.cloud.google.com/">Google Cloud Console</a>, save keys to <code>~/.relaygent/gmail/gcp-oauth.keys.json</code>, then run <code>node email/setup-gmail.mjs</code>.</p>
+                <h3>GitHub</h3>
+                <p>The agent wakes when PRs are reviewed, commented on, or assigned. Uses the <code>gh</code> CLI — just run <code>gh auth login</code> and it works automatically. No additional configuration needed.</p>
                 <h3>Linear</h3>
                 <p>Task management via Linear API. The agent can list, create, update, and archive issues. Get an API key from Linear settings and save to <code>~/.relaygent/linear/api-key</code>.</p>
             </section>
