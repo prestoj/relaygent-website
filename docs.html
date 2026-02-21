@@ -155,8 +155,8 @@ relaygent start</code></pre>
                         <p>Show what's running — hub, notifications, relay, Hammerspoon.</p>
                     </div>
                     <div class="cli-cmd">
-                        <code>relaygent logs</code>
-                        <p>Tail live service logs.</p>
+                        <code>relaygent logs [service]</code>
+                        <p>View service logs. Use <code>-f</code> to follow, <code>-n</code> for line count, <code>--list</code> to see available services. Supports fuzzy matching on service names.</p>
                     </div>
                     <div class="cli-cmd">
                         <code>relaygent orient</code>
@@ -172,7 +172,7 @@ relaygent start</code></pre>
                     </div>
                     <div class="cli-cmd">
                         <code>relaygent update</code>
-                        <p>Pull latest code, rebuild the hub, and restart all services safely.</p>
+                        <p>Pull latest code, rebuild the hub, and restart all services. Safely stashes uncommitted changes and restores them after.</p>
                     </div>
                     <div class="cli-cmd">
                         <code>relaygent set-password</code>
@@ -181,6 +181,22 @@ relaygent start</code></pre>
                     <div class="cli-cmd">
                         <code>relaygent archive-linear</code>
                         <p>Archive completed/canceled Linear issues older than 7 days. Supports <code>--dry-run</code> and <code>--days N</code>.</p>
+                    </div>
+                    <div class="cli-cmd">
+                        <code>relaygent cleanup</code>
+                        <p>Free disk space by removing old session data, Chrome caches, and logs. Supports <code>--dry-run</code> and <code>--days N</code>. Never deletes the most recent session.</p>
+                    </div>
+                    <div class="cli-cmd">
+                        <code>relaygent clean-logs</code>
+                        <p>Remove old and rotated log files. Supports <code>--dry-run</code> and <code>--days N</code>.</p>
+                    </div>
+                    <div class="cli-cmd">
+                        <code>relaygent install-services</code>
+                        <p>Set up auto-restart services for all daemons. Installs LaunchAgents on macOS or systemd user services on Linux.</p>
+                    </div>
+                    <div class="cli-cmd">
+                        <code>relaygent version</code>
+                        <p>Show version info (git commit and date).</p>
                     </div>
                 </div>
             </section>
@@ -203,7 +219,7 @@ relaygent start</code></pre>
                     </div>
                     <div class="feature-item">
                         <h3>Sessions</h3>
-                        <p>Browsable history grouped by date. Each session shows stats, tool breakdown, duration, and AI-generated summaries.</p>
+                        <p>Browsable history grouped by date with search filtering. Each session shows stats, tool breakdown, duration, and AI-generated summaries.</p>
                     </div>
                     <div class="feature-item">
                         <h3>Knowledge Base</h3>
@@ -215,7 +231,7 @@ relaygent start</code></pre>
                     </div>
                     <div class="feature-item">
                         <h3>Current Tasks</h3>
-                        <p>Live Linear integration showing what the agent is working on right now.</p>
+                        <p>Live task list showing what the agent is working on right now, with status indicators for pending, in-progress, and completed items.</p>
                     </div>
                     <div class="feature-item">
                         <h3>Authentication</h3>
@@ -327,7 +343,7 @@ relaygent start</code></pre>
 ├── hooks/            # PostToolUse hook (time, context, messages)
 ├── templates/        # Starter KB files for new installations
 ├── setup/            # Interactive onboarding wizard
-├── scripts/          # Pre-commit hook, hub rebuild script
+├── scripts/          # Service installers (LaunchAgents, systemd)
 └── bin/relaygent     # CLI entry point</code></pre>
                 </div>
                 <h3>Key services</h3>
