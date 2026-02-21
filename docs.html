@@ -183,6 +183,18 @@ relaygent start</code></pre>
                         <p>Archive completed/canceled Linear issues older than 7 days. Supports <code>--dry-run</code> and <code>--days N</code>.</p>
                     </div>
                     <div class="cli-cmd">
+                        <code>relaygent setup</code>
+                        <p>Run the interactive setup wizard. Installs dependencies, builds the hub, configures services.</p>
+                    </div>
+                    <div class="cli-cmd">
+                        <code>relaygent open [page]</code>
+                        <p>Open the hub dashboard in your browser. Optionally specify a page: <code>relaygent open kb</code>.</p>
+                    </div>
+                    <div class="cli-cmd">
+                        <code>relaygent mcp list|add|remove|test</code>
+                        <p>Manage MCP servers. Add custom servers with <code>--env</code> flags, test connectivity, or list all configured servers.</p>
+                    </div>
+                    <div class="cli-cmd">
                         <code>relaygent cleanup</code>
                         <p>Free disk space by removing old session data, Chrome caches, and logs. Supports <code>--dry-run</code> and <code>--days N</code>. Never deletes the most recent session.</p>
                     </div>
@@ -191,8 +203,28 @@ relaygent start</code></pre>
                         <p>Remove old and rotated log files. Supports <code>--dry-run</code> and <code>--days N</code>.</p>
                     </div>
                     <div class="cli-cmd">
+                        <code>relaygent stats</code>
+                        <p>Show session metrics — duration, tool calls, context usage, and more.</p>
+                    </div>
+                    <div class="cli-cmd">
+                        <code>relaygent changelog [--days N]</code>
+                        <p>Show merged PRs and recent commits. Defaults to last 7 days.</p>
+                    </div>
+                    <div class="cli-cmd">
+                        <code>relaygent digest [--days N]</code>
+                        <p>Generate a daily summary: PRs merged, commits, disk usage, open PRs.</p>
+                    </div>
+                    <div class="cli-cmd">
+                        <code>relaygent test [suite]</code>
+                        <p>Run the test suite. Optionally specify a suite: <code>hub</code>, <code>harness</code>, <code>notifications</code>, etc.</p>
+                    </div>
+                    <div class="cli-cmd">
                         <code>relaygent install-services</code>
                         <p>Set up auto-restart services for all daemons. Installs LaunchAgents on macOS or systemd user services on Linux.</p>
+                    </div>
+                    <div class="cli-cmd">
+                        <code>relaygent completions</code>
+                        <p>Output shell completions for bash/zsh. Add to your shell: <code>eval "$(relaygent completions)"</code>.</p>
                     </div>
                     <div class="cli-cmd">
                         <code>relaygent version</code>
@@ -232,6 +264,22 @@ relaygent start</code></pre>
                     <div class="feature-item">
                         <h3>Current Tasks</h3>
                         <p>Live task list showing what the agent is working on right now, with status indicators for pending, in-progress, and completed items.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Agent Tasks</h3>
+                        <p>Real-time display of the agent's current task list, pulled from Claude Code's TodoWrite tool via WebSocket.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Open PRs</h3>
+                        <p>Shows open pull requests with review status badges — approved, pending, or changes requested.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Notifications</h3>
+                        <p>Aggregated notifications from Slack, GitHub, Linear, email, and reminders. Auto-hides when empty.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Command Palette</h3>
+                        <p>Press <kbd>Cmd+K</kbd> to open a searchable overlay. Quickly navigate to any page or search KB topics.</p>
                     </div>
                     <div class="feature-item">
                         <h3>Authentication</h3>
@@ -332,6 +380,10 @@ relaygent start</code></pre>
                 <p>The agent wakes when PRs are reviewed, commented on, or assigned. Uses the <code>gh</code> CLI — just run <code>gh auth login</code> and it works automatically. No additional configuration needed.</p>
                 <h3>Linear</h3>
                 <p>Task management via Linear API. The agent can list, create, update, and archive issues. Get an API key from Linear settings and save to <code>~/.relaygent/linear/api-key</code>.</p>
+                <h3>GitHub</h3>
+                <p>GitHub notifications are collected automatically via <code>gh</code> CLI. The agent wakes on review requests, mentions, CI status changes, and PR comments. Authenticated through <code>gh auth login</code>.</p>
+                <h3>Wake Sources</h3>
+                <p>The agent sleeps at zero token cost between active work. It wakes on: chat messages, Slack DMs/mentions, GitHub notifications, Linear updates, email, and scheduled reminders.</p>
             </section>
 
             <section id="architecture">
