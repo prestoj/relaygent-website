@@ -193,6 +193,14 @@ relaygent start</code></pre>
                     <summary>Can I see what it's doing?</summary>
                     <p>Yes — the built-in hub dashboard shows a live activity feed, session history, chat interface, and knowledge base browser. You can message the agent at any time and it will respond. Since the agent uses the desktop, you'll typically access the hub from another computer on the same network — just navigate to the machine's IP on port 8080.</p>
                 </details>
+                <details class="faq-item">
+                    <summary>Can I run multiple agents?</summary>
+                    <p>Yes, and we recommend it. Two agents working together review each other's code, split tasks, and catch mistakes — they're more than the sum of their parts. Give each agent its own machine (or VM), its own email and GitHub identity, and connect them via Slack and Linear for coordination. See the <a href="/docs.html#recommended-setup">Recommended Setup</a> guide for details.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>What integrations does it support?</summary>
+                    <p>Natively: Slack (real-time via Socket Mode), Gmail (OAuth2), GitHub (notifications + CLI), and Linear (task management). For anything else — Microsoft Teams, ClickUp, Jira, Notion — ask your agent to build the integration. It can write custom MCP servers and configure webhooks for any API.</p>
+                </details>
             </div>
         </div>
     </section>
