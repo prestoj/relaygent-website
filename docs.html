@@ -31,6 +31,7 @@
                 <h4>Documentation</h4>
                 <ul>
                     <li><a href="#quick-start">Quick Start</a></li>
+                    <li><a href="#recommended-setup">Recommended Setup</a></li>
                     <li><a href="#requirements">Requirements</a></li>
                     <li><a href="#setup">Setup Guide</a></li>
                     <li><a href="#cli">CLI Reference</a></li>
@@ -65,6 +66,37 @@ relaygent start</code></pre>
                 <p>Setup handles everything: dependency installation, hub build, Hammerspoon configuration, and Claude CLI authentication. Open <code>http://localhost:8080</code> to see the dashboard.</p>
                 <div class="callout callout-warn">
                     <strong>Warning:</strong> This gives Claude full, unsupervised control of your machine. Only run on a dedicated machine or VM you're comfortable handing over.
+                </div>
+            </section>
+
+            <section id="recommended-setup">
+                <h2>Recommended Setup</h2>
+                <p>Relaygent works best when you treat each agent like a remote team member with their own workspace and identity.</p>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <h3>Dedicated Hardware</h3>
+                        <p>Give each agent its own machine — a Mac Mini, Linux box, or cloud VM. The agent uses the screen, keyboard, and filesystem, so sharing your daily driver will interfere with both of you. If dedicated hardware isn't an option, a VM on an always-on machine works too.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Network Access</h3>
+                        <p>Access your agent's dashboard over the network. <a href="https://tailscale.com/">Tailscale</a> is the easiest way — it creates a private mesh VPN with zero config. Once connected, open <code>http://&lt;agent-hostname&gt;:8080</code> from your laptop, phone, or tablet.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Multiple Agents</h3>
+                        <p>Two agents are more than the sum of their parts. They review each other's code, split work, and catch each other's mistakes. Set up <a href="https://slack.com">Slack</a> for real-time coordination and <a href="https://linear.app">Linear</a> for task tracking — the agents will use both to self-organize and avoid duplicating work.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Agent Identity</h3>
+                        <p>Give each agent its own email address, GitHub account, and API credentials. A dedicated email is the gateway to most online services — it lets the agent sign up for APIs, receive notifications, and interact with services independently.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Tool Integration</h3>
+                        <p>Relaygent ships with native Slack, Gmail, GitHub, and Linear integrations. For other systems — Microsoft Teams, ClickUp, Jira, Notion, or anything with an API — ask your agent to build the bridge. It can write custom MCP servers, configure webhooks, and set up whatever it needs.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Clear Intent</h3>
+                        <p>Your <code>INTENT.md</code> file is the agent's north star. It reads this every session but can never edit it. Be specific about what you want and how you want it done — the agent will follow your direction across hundreds of sessions.</p>
+                    </div>
                 </div>
             </section>
 
@@ -377,11 +409,9 @@ relaygent start</code></pre>
                 <h3>Email (Gmail)</h3>
                 <p>The agent gets its own email via Gmail OAuth2. Tools: search, read, send, draft, modify labels. Setup: create an OAuth2 client in <a href="https://console.cloud.google.com/">Google Cloud Console</a>, save keys to <code>~/.relaygent/gmail/gcp-oauth.keys.json</code>, then run <code>node email/setup-gmail.mjs</code>.</p>
                 <h3>GitHub</h3>
-                <p>The agent wakes when PRs are reviewed, commented on, or assigned. Uses the <code>gh</code> CLI — just run <code>gh auth login</code> and it works automatically. No additional configuration needed.</p>
+                <p>The agent wakes when PRs are reviewed, commented on, or assigned. Notifications are collected automatically via the <code>gh</code> CLI — just run <code>gh auth login</code> and it works. No additional configuration needed.</p>
                 <h3>Linear</h3>
                 <p>Task management via Linear API. The agent can list, create, update, and archive issues. Get an API key from Linear settings and save to <code>~/.relaygent/linear/api-key</code>.</p>
-                <h3>GitHub</h3>
-                <p>GitHub notifications are collected automatically via <code>gh</code> CLI. The agent wakes on review requests, mentions, CI status changes, and PR comments. Authenticated through <code>gh auth login</code>.</p>
                 <h3>Wake Sources</h3>
                 <p>The agent sleeps at zero token cost between active work. It wakes on: chat messages, Slack DMs/mentions, GitHub notifications, Linear updates, email, and scheduled reminders.</p>
             </section>
