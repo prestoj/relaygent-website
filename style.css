@@ -271,6 +271,23 @@ section h2 {
     line-height: 1.6;
 }
 
+/* Hub demo */
+.hub-demo { padding: 5rem 0; border-top: 1px solid var(--border); }
+
+.hub-screenshot {
+    margin-top: 2rem;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.hub-screenshot img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
 /* How it works */
 .how-it-works { padding: 5rem 0; }
 
