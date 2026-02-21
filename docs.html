@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docs — Relaygent</title>
+    <meta name="description" content="Setup guide, CLI reference, and architecture documentation for Relaygent.">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="docs.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <a href="/" class="logo">relaygent</a>
+            <button class="nav-toggle" aria-label="Menu" onclick="this.parentElement.classList.toggle('open')">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-links">
+                <a href="/#features">Features</a>
+                <a href="/docs.html" class="active">Docs</a>
+                <a href="/#faq">FAQ</a>
+                <a href="https://github.com/prestoj/relaygent" class="btn-nav">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-inner">
+                <h4>Documentation</h4>
+                <ul>
+                    <li><a href="#quick-start">Quick Start</a></li>
+                    <li><a href="#requirements">Requirements</a></li>
+                    <li><a href="#setup">Setup Guide</a></li>
+                    <li><a href="#cli">CLI Reference</a></li>
+                    <li><a href="#dashboard">Dashboard</a></li>
+                    <li><a href="#relay">How the Relay Works</a></li>
+                    <li><a href="#computer-use">Computer Use</a></li>
+                    <li><a href="#knowledge-base">Knowledge Base</a></li>
+                    <li><a href="#hooks">Hooks &amp; Notifications</a></li>
+                    <li><a href="#integrations">Integrations</a></li>
+                    <li><a href="#architecture">Architecture</a></li>
+                    <li><a href="#troubleshooting">Troubleshooting</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="docs-content">
+            <section id="quick-start">
+                <h1>Getting Started</h1>
+                <p>Get Relaygent running in under two minutes.</p>
+                <div class="terminal-frame">
+                    <div class="terminal-bar">
+                        <span class="dot dot-r"></span>
+                        <span class="dot dot-y"></span>
+                        <span class="dot dot-g"></span>
+                        <span class="terminal-label">terminal</span>
+                    </div>
+                    <pre><code>git clone https://github.com/prestoj/relaygent.git
+cd relaygent
+./setup.sh
+relaygent start</code></pre>
+                </div>
+                <p>Setup handles everything: dependency installation, hub build, Hammerspoon configuration, and Claude CLI authentication. Open <code>http://localhost:8080</code> to see the dashboard.</p>
+                <div class="callout callout-warn">
+                    <strong>Warning:</strong> This gives Claude full, unsupervised control of your machine. Only run on a dedicated machine or VM you're comfortable handing over.
+                </div>
+            </section>
+
+            <section id="requirements">
+                <h2>Requirements</h2>
+                <div class="req-table">
+                    <table>
+                        <thead><tr><th>Dependency</th><th>Version</th><th>Notes</th></tr></thead>
+                        <tbody>
+                            <tr><td>macOS or Linux</td><td>macOS 13+ / Ubuntu 22.04+</td><td>Primary supported platforms</td></tr>
+                            <tr><td>Node.js</td><td>20+</td><td>Dashboard, services, MCP servers</td></tr>
+                            <tr><td>Python</td><td>3.9+</td><td>Relay harness, notifications</td></tr>
+                            <tr><td>Claude Code</td><td>Latest</td><td><code>npm install -g @anthropic-ai/claude-code</code></td></tr>
+                            <tr><td>git</td><td>Any</td><td>KB tracking, PR workflow</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3>Platform extras</h3>
+                <p><strong>macOS:</strong> Hammerspoon (setup installs via Homebrew). You'll need to grant Accessibility and Screen Recording permissions.</p>
+                <p><strong>Linux:</strong></p>
+                <div class="terminal-frame">
+                    <div class="terminal-bar">
+                        <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+                        <span class="terminal-label">terminal</span>
+                    </div>
+                    <pre><code>sudo apt install xdotool scrot wmctrl imagemagick python3-pyatspi at-spi2-core</code></pre>
+                </div>
+            </section>
+
+            <section id="setup">
+                <h2>Setup Guide</h2>
+                <p>The interactive setup wizard walks you through everything. Here's what happens at each step:</p>
+                <ol class="setup-steps">
+                    <li>
+                        <strong>Prerequisite check</strong> — verifies Node.js 20+, Python 3.9+, git, and Claude Code are installed and authenticated.
+                    </li>
+                    <li>
+                        <strong>Directory creation</strong> — creates <code>~/.relaygent/</code> for config, <code>knowledge/topics/</code> for the KB, <code>logs/</code> and <code>data/</code> for runtime state.
+                    </li>
+                    <li>
+                        <strong>KB templates</strong> — copies starter templates (HANDOFF.md, INTENT.md, tasks.md, etc.) and initializes a git repo for change tracking.
+                    </li>
+                    <li>
+                        <strong>Dependencies</strong> — runs <code>npm install</code> for hub, notifications, computer-use, email, slack, and secrets. Creates a Python venv for notifications.
+                    </li>
+                    <li>
+                        <strong>Hub build</strong> — compiles the SvelteKit dashboard.
+                    </li>
+                    <li>
+                        <strong>CLAUDE.md</strong> — generates a machine-specific context file with paths, ports, and service info that gets injected into every Claude session.
+                    </li>
+                    <li>
+                        <strong>Secrets</strong> — optionally stores email credentials in <code>~/.relaygent/secrets.json</code>.
+                    </li>
+                    <li>
+                        <strong>Slack</strong> — optionally configures Slack integration with bot and app tokens.
+                    </li>
+                    <li>
+                        <strong>Hammerspoon</strong> (macOS) — installs Hammerspoon, copies Lua scripts, guides you through permissions.
+                    </li>
+                    <li>
+                        <strong>Hooks &amp; MCP</strong> — registers PostToolUse hooks and MCP servers with Claude Code.
+                    </li>
+                    <li>
+                        <strong>CLI symlink</strong> — creates <code>~/bin/relaygent</code> so the CLI is on your PATH.
+                    </li>
+                </ol>
+            </section>
+
+            <section id="cli">
+                <h2>CLI Reference</h2>
+                <p>All commands are available via the <code>relaygent</code> CLI after setup.</p>
+                <div class="cli-grid">
+                    <div class="cli-cmd">
+                        <code>relaygent start</code>
+                        <p>Launch the agent, dashboard, notifications, and all services. Registers LaunchAgents (macOS) or starts background processes.</p>
+                    </div>
+                    <div class="cli-cmd">
+                        <code>relaygent stop</code>
+                        <p>Stop all services and the relay agent.</p>
+                    </div>
+                    <div class="cli-cmd">
+                        <code>relaygent restart</code>
+                        <p>Restart all services.</p>
+                    </div>
+                    <div class="cli-cmd">
+                        <code>relaygent status</code>
+                        <p>Show what's running — hub, notifications, relay, Hammerspoon.</p>
+                    </div>
+                    <div class="cli-cmd">
+                        <code>relaygent logs</code>
+                        <p>Tail live service logs.</p>
+                    </div>
+                    <div class="cli-cmd">
+                        <code>relaygent orient</code>
+                        <p>Quick system status: services, disk, recent commits, agent work, tasks due.</p>
+                    </div>
+                    <div class="cli-cmd">
+                        <code>relaygent check</code>
+                        <p>Diagnose configuration, verify file permissions, check service health.</p>
+                    </div>
+                    <div class="cli-cmd">
+                        <code>relaygent health</code>
+                        <p>Quick health check — pings all services and reports status.</p>
+                    </div>
+                    <div class="cli-cmd">
+                        <code>relaygent update</code>
+                        <p>Pull latest code, rebuild the hub, and restart all services safely.</p>
+                    </div>
+                    <div class="cli-cmd">
+                        <code>relaygent set-password</code>
+                        <p>Set or remove password authentication for the hub dashboard. Use <code>--remove</code> to disable.</p>
+                    </div>
+                    <div class="cli-cmd">
+                        <code>relaygent archive-linear</code>
+                        <p>Archive completed/canceled Linear issues older than 7 days. Supports <code>--dry-run</code> and <code>--days N</code>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="dashboard">
+                <h2>Dashboard</h2>
+                <p>The hub is a SvelteKit web app at <code>http://localhost:8080</code> with live updates via WebSocket.</p>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <h3>Activity Feed</h3>
+                        <p>Every tool call the agent makes, in real time. Expand any entry to see full input/output details.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Screen View</h3>
+                        <p>Collapsible live view of what the agent sees via Hammerspoon screenshots. Click to interact.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Chat</h3>
+                        <p>Message your agent from the dashboard. Messages wake the agent from sleep. The agent responds in the same chat.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Sessions</h3>
+                        <p>Browsable history grouped by date. Each session shows stats, tool breakdown, duration, and AI-generated summaries.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Knowledge Base</h3>
+                        <p>Browse, create, edit, and delete the agent's long-term memory. Markdown with wiki-links, rendered in the browser.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Context Bar</h3>
+                        <p>Shows how full the current session's context window is. At ~85%, the agent begins handoff.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Current Tasks</h3>
+                        <p>Live Linear integration showing what the agent is working on right now.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Authentication</h3>
+                        <p>Optional password protection. Enable with <code>relaygent set-password</code>. Protects all routes including WebSocket and file uploads.</p>
+                    </div>
+                </div>
+                <div class="callout">
+                    <strong>Tip:</strong> Since the agent uses the desktop, you'll typically access the hub from another computer on the same network — navigate to the machine's IP on port 8080.
+                </div>
+            </section>
+
+            <section id="relay">
+                <h2>How the Relay Works</h2>
+                <ol class="relay-steps">
+                    <li><strong>Start a session</strong> — the harness launches Claude Code with a system prompt, handoff notes from the previous session, and your intent file.</li>
+                    <li><strong>Agent works</strong> — Claude reads files, writes code, runs commands, uses the screen — whatever the task requires.</li>
+                    <li><strong>PostToolUse hook fires</strong> — after every tool call, a hook injects current time, notifications, and context usage percentage.</li>
+                    <li><strong>Context fills up</strong> — at ~85%, the agent wraps up: writes a detailed handoff, updates persistent state, and commits the KB.</li>
+                    <li><strong>Successor continues</strong> — the harness spawns a fresh session that reads the handoff and continues immediately.</li>
+                    <li><strong>Sleep between tasks</strong> — the harness polls for notifications and resumes when one arrives. Zero token cost while sleeping.</li>
+                </ol>
+            </section>
+
+            <section id="computer-use">
+                <h2>Computer Use</h2>
+                <p>The agent interacts with your screen through 33 MCP tools across several categories:</p>
+                <div class="tool-categories">
+                    <div class="tool-cat">
+                        <h3>Screen</h3>
+                        <p>Screenshots (full or cropped), click, double-click, right-click, type, scroll, drag. All with modifier key support.</p>
+                    </div>
+                    <div class="tool-cat">
+                        <h3>Accessibility</h3>
+                        <p>Read the accessibility tree, find elements by role or title, click elements programmatically. Works with any native UI.</p>
+                    </div>
+                    <div class="tool-cat">
+                        <h3>Apps &amp; Windows</h3>
+                        <p>Launch apps, focus windows, list all visible windows with positions.</p>
+                    </div>
+                    <div class="tool-cat">
+                        <h3>Browser (14 tools)</h3>
+                        <p>Navigate, click, type, fill forms, hover, select dropdowns, scroll, wait for elements, read text, evaluate JS, get URLs — all via Chrome DevTools Protocol.</p>
+                    </div>
+                    <div class="tool-cat">
+                        <h3>System</h3>
+                        <p>AppleScript (macOS), dismiss dialogs, reload Hammerspoon config.</p>
+                    </div>
+                </div>
+                <p>On macOS, these are backed by <a href="https://www.hammerspoon.org/">Hammerspoon</a>. On Linux, they use xdotool, scrot, ImageMagick, wmctrl, and pyatspi2. Every action auto-returns a screenshot so the agent sees results immediately.</p>
+            </section>
+
+            <section id="knowledge-base">
+                <h2>Knowledge Base</h2>
+                <p>The agent maintains a git-tracked KB that grows across sessions:</p>
+                <div class="req-table">
+                    <table>
+                        <thead><tr><th>File</th><th>Purpose</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>MEMORY.md</code></td><td>Persistent memory — accumulates across sessions, auto-injected into every prompt</td></tr>
+                            <tr><td><code>HANDOFF.md</code></td><td>Briefing from the previous session (rewritten from scratch each handoff)</td></tr>
+                            <tr><td><code>INTENT.md</code></td><td>Your priorities — the agent reads this but never edits it</td></tr>
+                            <tr><td><code>tasks.md</code></td><td>Recurring and one-off task queue</td></tr>
+                            <tr><td><code>curiosities.md</code></td><td>Open questions to explore when idle</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>Create additional topic files as needed. The agent links them together with <code>[[wiki-links]]</code>. All changes are committed to a local git repo for version history.</p>
+            </section>
+
+            <section id="hooks">
+                <h2>Hooks &amp; Notifications</h2>
+                <p>The agent stays aware through a <strong>PostToolUse hook</strong> — a shell script that runs after every tool call:</p>
+                <ul>
+                    <li><strong>Current time</strong> — injected every call so the agent always knows what time it is</li>
+                    <li><strong>Context tracking</strong> — calculates context window fill %. At 85%, injects a wrap-up warning</li>
+                    <li><strong>Chat messages</strong> — checks for unread messages from you</li>
+                    <li><strong>Reminders</strong> — the agent can set reminders via MCP tools; when they fire, the hook surfaces them</li>
+                </ul>
+                <p>A background notification poller caches results to a temp file. The hook reads from cache (instant, no HTTP) — zero latency added to tool calls.</p>
+            </section>
+
+            <section id="integrations">
+                <h2>Integrations</h2>
+                <h3>Slack</h3>
+                <p>Connect the agent to Slack with bot and app tokens. It can read/send messages, search, react, and list channels. Configure during setup or later via <code>~/.relaygent/slack/</code>.</p>
+                <h3>Email (Gmail)</h3>
+                <p>The agent gets its own email via Gmail OAuth2. Tools: search, read, send, draft, modify labels. Setup: create an OAuth2 client in <a href="https://console.cloud.google.com/">Google Cloud Console</a>, save keys to <code>~/.relaygent/gmail/gcp-oauth.keys.json</code>, then run <code>node email/setup-gmail.mjs</code>.</p>
+                <h3>Linear</h3>
+                <p>Task management via Linear API. The agent can list, create, update, and archive issues. Get an API key from Linear settings and save to <code>~/.relaygent/linear/api-key</code>.</p>
+            </section>
+
+            <section id="architecture">
+                <h2>Architecture</h2>
+                <div class="terminal-frame">
+                    <div class="terminal-bar">
+                        <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+                        <span class="terminal-label">project structure</span>
+                    </div>
+                    <pre><code>relaygent/
+├── harness/          # Relay runner — session lifecycle, sleep/wake
+├── hub/              # SvelteKit dashboard + chat + KB (Node.js)
+├── computer-use/     # MCP server for screen control (33 tools)
+├── hammerspoon/      # Lua scripts for macOS screen control
+├── notifications/    # Reminder + wake trigger service (Python)
+├── linear/           # Linear MCP server + auto-archive
+├── email/            # Gmail MCP server (OAuth2, 6 tools)
+├── slack/            # Slack MCP server + Socket Mode listener
+├── secrets/          # Credential store (dotfile JSON + MCP)
+├── hooks/            # PostToolUse hook (time, context, messages)
+├── templates/        # Starter KB files for new installations
+├── setup/            # Interactive onboarding wizard
+├── scripts/          # Pre-commit hook, hub rebuild script
+└── bin/relaygent     # CLI entry point</code></pre>
+                </div>
+                <h3>Key services</h3>
+                <div class="req-table">
+                    <table>
+                        <thead><tr><th>Service</th><th>Port</th><th>Technology</th></tr></thead>
+                        <tbody>
+                            <tr><td>Hub dashboard</td><td>8080</td><td>SvelteKit + WebSocket</td></tr>
+                            <tr><td>Notifications</td><td>8083</td><td>Python / Flask</td></tr>
+                            <tr><td>Hammerspoon</td><td>8097</td><td>Lua HTTP server</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="troubleshooting">
+                <h2>Troubleshooting</h2>
+                <details class="faq-item">
+                    <summary>Hub shows 500 errors after update</summary>
+                    <p>Never run <code>npm run build</code> directly — the running server will serve stale manifests. Always use <code>relaygent update</code> which rebuilds and restarts atomically.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Port 8080 is already in use</summary>
+                    <p>Another process is holding the port. Run <code>relaygent stop</code> first, or check with <code>lsof -i :8080</code>. On macOS, the LaunchAgent auto-restarts the hub, so kill the process and it will respawn cleanly.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Hammerspoon permissions (macOS)</summary>
+                    <p>Hammerspoon needs Accessibility and Screen Recording permissions. Go to System Settings → Privacy & Security → Accessibility (and Screen Recording) and enable Hammerspoon. You may need to restart it after granting permissions.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Chrome CDP not connecting</summary>
+                    <p>Chrome requires a non-default <code>--user-data-dir</code> for remote debugging to work. The setup creates one at <code>~/data/chrome-debug-profile</code>. If Chrome is already running with the default profile, the debug port won't activate. Close Chrome and let the agent launch it with the correct flags.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Agent not waking from sleep</summary>
+                    <p>Check that the notifications service is running: <code>relaygent health</code>. The notification poller must be active for sleep/wake to work. If it's down, <code>relaygent restart</code> will bring it back.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Changes to code not taking effect</summary>
+                    <p>MCP servers cache code at startup. After editing source files, restart the Claude Code session for MCP changes to take effect. For hub changes, use <code>relaygent update</code>.</p>
+                </details>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="footer-logo">relaygent</span>
+                <span class="footer-tagline">Autonomous AI agent for your machine</span>
+            </div>
+            <div class="footer-links">
+                <a href="/#features">Features</a>
+                <a href="/docs.html">Docs</a>
+                <a href="/#faq">FAQ</a>
+                <a href="https://github.com/prestoj/relaygent">GitHub</a>
+            </div>
+        </div>
+        <div class="footer-sub">
+            <span>Open source &amp; MIT licensed</span>
+            <span>Built by autonomous Claude agents</span>
+        </div>
+    </footer>
+
+    <script>
+        // Highlight active sidebar link on scroll
+        const sections = document.querySelectorAll('.docs-content section[id]');
+        const sidebarLinks = document.querySelectorAll('.docs-sidebar a');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    sidebarLinks.forEach(a => a.classList.remove('active'));
+                    const link = document.querySelector(`.docs-sidebar a[href="#${e.target.id}"]`);
+                    if (link) link.classList.add('active');
+                }
+            });
+        }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+        sections.forEach(s => observer.observe(s));
+        // Mobile nav close on link click
+        document.querySelectorAll('.nav-links a').forEach(a => {
+            a.addEventListener('click', () => document.querySelector('.nav-inner')?.classList.remove('open'));
+        });
+    </script>
+</body>
+</html>

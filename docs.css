@@ -1,0 +1,322 @@
+/* Docs page layout */
+.docs-layout {
+    display: flex;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-top: 4rem;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.docs-sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 4rem;
+    height: calc(100vh - 4rem);
+    overflow-y: auto;
+    border-right: 1px solid var(--border);
+    padding: 2rem 0;
+}
+
+.sidebar-inner {
+    padding: 0 1.25rem;
+}
+
+.sidebar-inner h4 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+    margin-bottom: 1rem;
+}
+
+.sidebar-inner ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.sidebar-inner a {
+    display: block;
+    padding: 0.35rem 0.65rem;
+    font-size: 0.88rem;
+    color: var(--text-dim);
+    border-radius: 6px;
+    transition: background 0.15s, color 0.15s;
+}
+.sidebar-inner a:hover {
+    color: var(--text);
+    background: rgba(99, 102, 241, 0.08);
+    text-decoration: none;
+}
+.sidebar-inner a.active {
+    color: var(--accent);
+    background: var(--accent-glow);
+}
+
+/* Content */
+.docs-content {
+    flex: 1;
+    min-width: 0;
+    padding: 2rem 2.5rem 4rem;
+}
+
+.docs-content section {
+    margin-bottom: 3.5rem;
+    scroll-margin-top: 5rem;
+}
+
+.docs-content h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+}
+
+.docs-content h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+    padding-top: 0.5rem;
+}
+
+.docs-content h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 1.5rem 0 0.5rem;
+}
+
+.docs-content p {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.docs-content ul, .docs-content ol {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.docs-content li { margin-bottom: 0.4rem; }
+
+.docs-content code {
+    background: var(--bg-code);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: var(--green);
+}
+
+.docs-content pre code {
+    background: none;
+    padding: 0;
+}
+
+.docs-content .terminal-frame {
+    margin: 1rem 0 1.5rem;
+}
+
+/* Callouts */
+.callout {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+}
+.callout strong { color: var(--text); }
+
+.callout-warn {
+    border-left-color: #f59e0b;
+}
+.callout-warn strong { color: #f59e0b; }
+
+/* Tables */
+.req-table {
+    overflow-x: auto;
+    margin: 1rem 0 1.5rem;
+}
+
+.req-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.req-table th {
+    text-align: left;
+    padding: 0.6rem 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.req-table td {
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+}
+
+/* Setup steps */
+.setup-steps {
+    counter-reset: step;
+    list-style: none;
+    padding-left: 0;
+}
+
+.setup-steps li {
+    position: relative;
+    padding-left: 2.5rem;
+    margin-bottom: 0.75rem;
+    counter-increment: step;
+}
+
+.setup-steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 0.1em;
+    width: 1.6rem;
+    height: 1.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent-glow);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+/* CLI grid */
+.cli-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.cli-cmd {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+}
+
+.cli-cmd code {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--green);
+    background: none;
+    padding: 0;
+}
+
+.cli-cmd p {
+    margin: 0.3rem 0 0;
+    font-size: 0.88rem;
+}
+
+/* Feature list */
+.feature-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.feature-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem;
+}
+
+.feature-item h3 {
+    margin: 0 0 0.3rem;
+    font-size: 0.95rem;
+}
+
+.feature-item p {
+    margin: 0;
+    font-size: 0.88rem;
+}
+
+/* Tool categories */
+.tool-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.tool-cat {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem;
+}
+
+.tool-cat h3 { margin: 0 0 0.3rem; font-size: 0.95rem; }
+.tool-cat p { margin: 0; font-size: 0.88rem; }
+
+/* Relay steps */
+.relay-steps { padding-left: 0; }
+.relay-steps li {
+    position: relative;
+    padding-left: 2.5rem;
+    margin-bottom: 0.75rem;
+}
+
+/* FAQ in docs (reuse main styles) */
+.docs-content .faq-item {
+    margin-bottom: 0.5rem;
+}
+
+/* Active nav link */
+.nav-links a.active {
+    color: var(--text) !important;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .docs-layout {
+        flex-direction: column;
+    }
+    .docs-sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 1rem 0;
+    }
+    .sidebar-inner ul {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+    }
+    .sidebar-inner a {
+        font-size: 0.8rem;
+        padding: 0.25rem 0.5rem;
+    }
+    .docs-content {
+        padding: 1.5rem 1rem 3rem;
+    }
+    .feature-list, .tool-categories {
+        grid-template-columns: 1fr;
+    }
+}
