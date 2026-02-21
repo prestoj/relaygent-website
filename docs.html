@@ -409,11 +409,9 @@ relaygent start</code></pre>
                 <h3>Email (Gmail)</h3>
                 <p>The agent gets its own email via Gmail OAuth2. Tools: search, read, send, draft, modify labels. Setup: create an OAuth2 client in <a href="https://console.cloud.google.com/">Google Cloud Console</a>, save keys to <code>~/.relaygent/gmail/gcp-oauth.keys.json</code>, then run <code>node email/setup-gmail.mjs</code>.</p>
                 <h3>GitHub</h3>
-                <p>The agent wakes when PRs are reviewed, commented on, or assigned. Uses the <code>gh</code> CLI — just run <code>gh auth login</code> and it works automatically. No additional configuration needed.</p>
+                <p>The agent wakes when PRs are reviewed, commented on, or assigned. Notifications are collected automatically via the <code>gh</code> CLI — just run <code>gh auth login</code> and it works. No additional configuration needed.</p>
                 <h3>Linear</h3>
                 <p>Task management via Linear API. The agent can list, create, update, and archive issues. Get an API key from Linear settings and save to <code>~/.relaygent/linear/api-key</code>.</p>
-                <h3>GitHub</h3>
-                <p>GitHub notifications are collected automatically via <code>gh</code> CLI. The agent wakes on review requests, mentions, CI status changes, and PR comments. Authenticated through <code>gh auth login</code>.</p>
                 <h3>Wake Sources</h3>
                 <p>The agent sleeps at zero token cost between active work. It wakes on: chat messages, Slack DMs/mentions, GitHub notifications, Linear updates, email, and scheduled reminders.</p>
             </section>
